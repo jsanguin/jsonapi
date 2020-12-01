@@ -1,0 +1,12 @@
+     H
+     D Cust_Id         S             10A
+     D Cust_Info       S            500A
+     D GetJsonCusPR    PR           500A
+     D                               10A
+      *
+      /Free
+            Cust_Id = '938472';
+            Cust_Info = GetJsonCusPR(Cust_Id);
+            Dsply ('RPG004 --> ' + %char(%len(%trimr(Cust_Info))));
+            *INLr = *On;
+      /End-Free

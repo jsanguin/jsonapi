@@ -1,0 +1,25 @@
+     H Nomain
+     P GetJsonCusPR    B                   Export
+     D GetJsonCusPR    PI           500A
+     D  Cust_Id                      10A
+      *
+     D CustDataOut     S            500A
+      /Free
+            Exec Sql
+               Select json_object(
+                    'Customer_Id'   value   CUSNUM,
+                    'Last_Name'     value   LSTNAM,
+                    'Address'       value   json_object (
+                                    'Street'    value   STREET,
+                                    'City'      value   CITY,
+                                    'State'     value   STATE,
+                                    'ZipCode'   value   ZIPCOD
+                                    )
+                                )
+               into :CustDataOut
+               from qcustcdt
+               where (CUSNUM = :Cust_Id);
+
+            Return CustDataOut;
+      /End-free
+     P GetJsonCusPR    E
